@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/listActivityBackground"
+    android:orientation="vertical"
+    tools:context=".ui.route.RouteActivity">
+
+    <ListView
+        android:id="@+id/routesListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:drawSelectorOnTop="true"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/routeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/arrivalPredictionTextView"
+            style="@style/BodyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_default_padding"
+            android:layout_marginTop="@dimen/material_default_padding"
+            android:layout_marginBottom="@dimen/material_small_padding"
+            tools:text="Arrives at Campus Garching at 1:30pm" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/navigationDepartureStopButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_small_padding"
+            android:layout_marginBottom="@dimen/material_small_padding"
+            android:text="@string/navigate_to_departure_stop"
+            app:cornerRadius="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

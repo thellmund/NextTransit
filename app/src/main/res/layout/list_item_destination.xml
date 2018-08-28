@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="@dimen/material_card_corner_radius"
+    app:cardElevation="@dimen/material_card_elevation">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/colorAccentView"
+            android:layout_width="@dimen/color_accent_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginBottom="@dimen/material_default_padding"
+            android:layout_marginTop="@dimen/material_default_padding"
+            android:background="@drawable/color_accent_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- Name and trip details -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="@dimen/material_default_padding">
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    style="@style/CardPrimaryTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Home" />
+
+                <TextView
+                    android:id="@+id/transitLineTextView"
+                    style="@style/CardSupportingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Subway U3 at Marienplatz" />
+
+                <TextView
+                    android:id="@+id/errorTextView"
+                    style="@style/CardSupportingErrorTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_route_found" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="@dimen/material_default_padding"
+                android:paddingTop="@dimen/material_default_padding">
+
+                <!-- Departure buffer -->
+                <LinearLayout
+                    android:id="@+id/durationUntilDepartureContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/durationUntilDepartureTextView"
+                        style="@style/CardSecondaryTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        tools:text="30" />
+
+                    <TextView
+                        android:id="@+id/unitTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        tools:text="mins" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="@dimen/material_progress_indicator"
+                    android:layout_height="@dimen/material_progress_indicator"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/optionsButton"
+                android:layout_width="@dimen/button_with_inner_padding"
+                android:layout_height="@dimen/button_with_inner_padding"
+                android:layout_gravity="center_vertical"
+                android:alpha="0.3"
+                android:padding="@dimen/material_default_padding"
+                android:src="@drawable/ic_more_vert_black_24dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</android.support.design.card.MaterialCardView>

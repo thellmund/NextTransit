@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/errorText"
+    android:padding="@dimen/material_default_padding">
+
+    <ImageView
+        android:id="@+id/errorIcon"
+        android:layout_width="@dimen/list_item_icon"
+        android:layout_height="@dimen/list_item_icon"
+        android:contentDescription="@string/access_icon_missing_location"
+        android:src="@drawable/ic_location_off_white_48dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_default_padding"
+        android:layout_toEndOf="@+id/errorIcon"
+        android:lineSpacingMultiplier="1.15"
+        android:orientation="vertical"
+        android:text="@string/could_not_find_location"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/errorIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+</android.support.constraint.ConstraintLayout>

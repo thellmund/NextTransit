@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingStart="@dimen/material_extra_large_padding"
+    android:paddingEnd="@dimen/material_extra_large_padding"
+    tools:context=".ui.onboarding.IntroductionActivity">
+
+    <LinearLayout
+        android:id="@+id/promoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iconImageView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:contentDescription="@string/app_icon"
+            android:src="@drawable/introduction_header_image" />
+
+        <TextView
+            android:id="@+id/headerTextView"
+            style="@style/HeaderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_default_padding"
+            android:text="@string/introduction_header" />
+
+        <TextView
+            android:id="@+id/bodyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_small_padding"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.15"
+            android:text="@string/introduction_text"
+            android:textColor="@color/bodyText"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/allowAccessButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/allow_location_access"
+            android:textColor="@android:color/white"
+            app:cornerRadius="@dimen/material_button_corner_radius" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/whyButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/material_extra_large_padding"
+            android:text="@string/why"
+            android:textAllCaps="false"
+            android:textColor="@color/bodyText"
+            app:backgroundTint="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/imageCreditTextView"
+            style="@style/IntroductionImageCreditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:textAlignment="center"
+            tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod ." />
+
+    </LinearLayout>
+
+</FrameLayout>

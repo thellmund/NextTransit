@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="material_small_padding">8dp</dimen>
+    <dimen name="material_default_padding">16dp</dimen>
+    <dimen name="material_large_padding">24dp</dimen>
+    <dimen name="material_extra_large_padding">32dp</dimen>
+
+    <dimen name="material_button_corner_radius">@dimen/material_large_padding</dimen>
+    <dimen name="material_card_corner_radius">@dimen/material_small_padding</dimen>
+    <dimen name="material_card_elevation">1dp</dimen>
+
+    <dimen name="material_progress_indicator">32dp</dimen>
+    <dimen name="button_with_inner_padding">56dp</dimen>
+    <dimen name="recycler_view_bottom_padding">88dp</dimen>
+    <dimen name="list_item_height">88dp</dimen>
+
+    <dimen name="color_accent_width">4dp</dimen>
+    <dimen name="list_item_icon">@dimen/material_extra_large_padding</dimen>
+    <dimen name="app_icon">100dp</dimen>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@android:color/white"
+    android:padding="@dimen/material_extra_large_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/placeholderIcon"
+            android:layout_width="@dimen/app_icon"
+            android:layout_height="@dimen/app_icon"
+            android:layout_marginBottom="@dimen/material_default_padding"
+            android:alpha="0.3"
+            android:contentDescription="@string/access_icon_placeholder_view"
+            android:src="@drawable/ic_directions_transit_black_48dp" />
+
+        <TextView
+            android:id="@+id/placeholderHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_default_padding"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/no_destinations_added"
+            android:textColor="@color/placeholderText"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/placeholderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.15"
+            android:text="@string/add_destination_with_button"
+            android:textColor="@color/placeholderText"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/placeholderButton"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/material_extra_large_padding"
+        android:text="@string/add_destination"
+        android:textColor="@android:color/white"
+        app:cornerRadius="20dp" />
+
+</FrameLayout>

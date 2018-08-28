@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#0400BA</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="listActivityBackground">#F2F2F2</color>
+    <color name="placeholderBackground">#E0E0E0</color>
+    <color name="divider">#E0E0E0</color>
+
+    <color name="placeholderText">#AAAAAA</color>
+    <color name="errorText">#EF5350</color>
+
+    <color name="longDuration">#66BB6A</color>
+    <color name="mediumDuration">#FFA726</color>
+    <color name="shortDuration">#EF5350</color>
+
+    <color name="headerText">#DE000000</color>
+    <color name="bodyText">#8A000000</color>
+
+    <color name="chip_color">#BDBDBD</color>
+
+    <color name="listItemText">#414141</color>
+    <color name="listItemIcon">#757575</color>
+
+</resources>

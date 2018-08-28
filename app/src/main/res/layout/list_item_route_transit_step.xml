@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/material_default_padding">
+
+    <ImageView
+        android:id="@+id/transitModeIconImageView"
+        android:layout_width="@dimen/list_item_icon"
+        android:layout_height="@dimen/list_item_icon"
+        android:layout_gravity="center_vertical"
+        android:alpha="0.45"
+        tools:src="@drawable/ic_directions_transit_black_48dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_default_padding"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/departureStopNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.15"
+            android:textColor="@color/headerText"
+            android:textSize="16sp"
+            tools:text="Petuelring" />
+
+        <LinearLayout
+            android:id="@+id/transitInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/signTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rounded_corners_background"
+                android:paddingBottom="1dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="1dp"
+                android:textColor="@android:color/white"
+                tools:text="U3" />
+
+            <TextView
+                android:id="@+id/transitDetailsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/material_small_padding"
+                android:paddingTop="1dp"
+                android:textColor="@color/bodyText"
+                tools:text="Fürstenried West until Scheidplatz" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timeInformationContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/material_default_padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/departureTimeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/bodyText"
+            tools:text="11:33am" />
+
+        <TextView
+            android:id="@+id/transitDurationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/bodyText"
+            tools:text="3 mins" />
+
+    </LinearLayout>
+
+</LinearLayout>

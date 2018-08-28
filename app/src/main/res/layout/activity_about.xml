@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".ui.about.AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/material_default_padding">
+
+        <ImageView
+            android:layout_width="@dimen/app_icon"
+            android:layout_height="@dimen/app_icon"
+            android:layout_marginBottom="@dimen/material_default_padding"
+            android:contentDescription="@string/app_icon"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/versionTextView"
+            style="@style/HeaderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="NextTransit 3" />
+
+        <TextView
+            style="@style/BodyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_thank_you" />
+
+        <View style="@style/DividerWithMargin" />
+
+        <TextView
+            style="@style/BodyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/about_color_header" />
+
+        <TextView
+            style="@style/BodyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_small_padding"
+            android:text="@string/about_colorscheme" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_default_padding"
+            android:orientation="vertical">
+
+            <!-- Long duration -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/DurationExplanationTextView"
+                android:layout_marginBottom="10dp"
+                android:text="@string/long_duration_description"
+                app:backgroundTint="@color/longDuration" />
+
+            <!-- Medium duration -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/DurationExplanationTextView"
+                android:layout_marginBottom="10dp"
+                android:text="@string/medium_duration_description"
+                app:backgroundTint="@color/mediumDuration" />
+
+            <!-- Short duration -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/DurationExplanationTextView"
+                android:text="@string/short_duration_description"
+                app:backgroundTint="@color/shortDuration" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
