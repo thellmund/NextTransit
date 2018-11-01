@@ -1,7 +1,7 @@
 package com.hellmund.transport.data.model
 
 import android.graphics.drawable.GradientDrawable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.list_item_route_transit_step.view.*
 

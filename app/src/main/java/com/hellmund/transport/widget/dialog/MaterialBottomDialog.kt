@@ -1,6 +1,6 @@
 package com.hellmund.transport.widget.dialog
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.hellmund.transport.ui.destinations.MaterialBottomDialogFragment
 import com.hellmund.transport.ui.destinations.MaterialBottomDialogListener
 import com.hellmund.transport.widget.dialog.actions.Action

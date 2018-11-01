@@ -1,6 +1,6 @@
 package com.hellmund.transport.widget.dialog.actions
 
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import com.hellmund.transport.R
 import kotlinx.android.synthetic.main.list_item_bottom_dialog.view.*

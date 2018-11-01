@@ -2,7 +2,7 @@ package com.hellmund.transport.ui.about
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.hellmund.transport.R

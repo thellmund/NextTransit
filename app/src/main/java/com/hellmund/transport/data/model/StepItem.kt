@@ -1,6 +1,6 @@
 package com.hellmund.transport.data.model
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 abstract class StepItem(private val step: Step) {
 

@@ -1,18 +1,16 @@
 package com.hellmund.transport.ui.edit
 
-import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.chip.Chip
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionManager
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.core.content.systemService
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.chip.Chip
 import com.hellmund.transport.R
 import com.hellmund.transport.data.model.Suggestion
 import com.hellmund.transport.data.persistence.Destination
@@ -22,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_destination.*
+import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.textColor
 import java.util.concurrent.TimeUnit
 
@@ -165,7 +164,6 @@ class EditDestinationActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = systemService<InputMethodManager>()
         inputMethodManager.hideSoftInputFromWindow(scrollView.windowToken, 0)
 
         titleInputView.clearFocus()

@@ -57,21 +57,21 @@
             android:orientation="vertical">
 
             <!-- Long duration -->
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/DurationExplanationTextView"
                 android:layout_marginBottom="10dp"
                 android:text="@string/long_duration_description"
                 app:backgroundTint="@color/longDuration" />
 
             <!-- Medium duration -->
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/DurationExplanationTextView"
                 android:layout_marginBottom="10dp"
                 android:text="@string/medium_duration_description"
                 app:backgroundTint="@color/mediumDuration" />
 
             <!-- Short duration -->
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/DurationExplanationTextView"
                 android:text="@string/short_duration_description"
                 app:backgroundTint="@color/shortDuration" />

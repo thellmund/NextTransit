@@ -5,11 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.location.Location
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View

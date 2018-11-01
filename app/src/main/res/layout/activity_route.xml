@@ -17,7 +17,7 @@
         android:drawSelectorOnTop="true"
         android:visibility="gone" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/routeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="@dimen/material_small_padding"
             tools:text="Arrives at Campus Garching at 1:30pm" />
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/navigationDepartureStopButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"

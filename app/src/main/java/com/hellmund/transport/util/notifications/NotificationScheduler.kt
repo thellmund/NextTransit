@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.SystemClock
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import com.hellmund.transport.BuildConfig
 import com.hellmund.transport.R
 import com.hellmund.transport.util.Constants

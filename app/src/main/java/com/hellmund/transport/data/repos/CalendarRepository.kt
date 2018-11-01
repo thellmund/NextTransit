@@ -3,7 +3,7 @@ package com.hellmund.transport.data.repos
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.hellmund.transport.data.model.CalendarEvent
 import com.hellmund.transport.util.NonNullLiveData
 import me.everything.providers.android.calendar.CalendarProvider

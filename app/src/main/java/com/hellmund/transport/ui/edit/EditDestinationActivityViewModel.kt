@@ -1,7 +1,7 @@
 package com.hellmund.transport.ui.edit
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.hellmund.transport.data.persistence.Destination
 import com.hellmund.transport.data.repos.DestinationsRepository
 import com.hellmund.transport.data.repos.SuggestionsRepository

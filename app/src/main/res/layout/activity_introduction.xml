@@ -51,7 +51,7 @@
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/allowAccessButton"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             android:textColor="@android:color/white"
             app:cornerRadius="@dimen/material_button_corner_radius" />
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/whyButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"

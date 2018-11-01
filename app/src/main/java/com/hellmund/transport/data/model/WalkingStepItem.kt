@@ -1,6 +1,6 @@
 package com.hellmund.transport.data.model
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.list_item_route_walking_step.view.*
 

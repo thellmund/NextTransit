@@ -1,8 +1,8 @@
 package com.hellmund.transport.ui.edit
 
 import android.app.Application
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.hellmund.transport.data.persistence.Destination
 
 class EditDestinationActivityViewModelFactory(
