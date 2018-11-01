@@ -3,12 +3,12 @@ package com.hellmund.transport.ui.destinations
 import android.content.Context
 import android.graphics.PorterDuff
 import android.location.Location
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.hellmund.transport.R
 import com.hellmund.transport.data.model.Trip
 import com.hellmund.transport.data.persistence.Destination
@@ -53,7 +53,9 @@ class DestinationsAdapter(context: Context) :
         items.forEachIndexed { index, item ->
             item.position = index
         }
+    }
 
+    override fun onMoveFinished() {
         listener.onOrderChanged(items)
     }
 

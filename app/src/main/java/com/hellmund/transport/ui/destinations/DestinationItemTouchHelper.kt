@@ -1,8 +1,8 @@
 package com.hellmund.transport.ui.destinations
 
 import android.graphics.Canvas
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 class DestinationItemTouchHelper(
         private val listener: ItemTouchHelperListener
@@ -34,6 +34,11 @@ class DestinationItemTouchHelper(
         }
     }
 
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        listener.onMoveFinished()
+    }
+
     override fun onChildDraw(canvas: Canvas, recyclerView: RecyclerView,
                              holder: RecyclerView.ViewHolder, dX: Float,
                              dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
@@ -51,6 +56,7 @@ class DestinationItemTouchHelper(
 
     interface ItemTouchHelperListener {
         fun onMove(fromPosition: Int, toPosition: Int)
+        fun onMoveFinished()
         fun onSwipedLeft(position: Int)
         fun onSwipedRight(position: Int)
     }

@@ -2,24 +2,24 @@ package com.hellmund.transport.ui.destinations
 
 import android.Manifest
 import android.annotation.SuppressLint
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationRequest
+import com.google.android.material.snackbar.Snackbar
 import com.hellmund.transport.R
 import com.hellmund.transport.data.model.CalendarEvent
 import com.hellmund.transport.data.model.Trip
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity(),
                 .setTitle(event.getBannerTitle)
                 .setMessage(text)
                 .setNegativeButton(R.string.dismiss) { banner -> banner.dismiss() }
-                .setPositiveButton(R.string.open_route) { _ -> openRouteActivity(event.location, trip) }
+                .setPositiveButton(R.string.open_route) { openRouteActivity(event.location, trip) }
                 .show()
     }
 

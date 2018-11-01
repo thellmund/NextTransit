@@ -1,7 +1,7 @@
 package com.hellmund.transport.data.repos
 
-import androidx.lifecycle.LiveData
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.hellmund.transport.data.persistence.AppDatabase
 import com.hellmund.transport.data.persistence.Destination
 import org.jetbrains.anko.doAsync
@@ -24,8 +24,10 @@ class DestinationsRepository(context: Context) {
     }
 
     fun updateDestinations(destinations: List<Destination>) {
-        destinations.forEach {  destination ->
-            database.destinationsDao().update(destination)
+        doAsync {
+            destinations.forEach {  destination ->
+                database.destinationsDao().update(destination)
+            }
         }
     }
 
