@@ -1,18 +1,18 @@
 package com.hellmund.transport.data.persistence
 
+import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
+import com.hellmund.library.actions.Action
+import com.hellmund.library.actions.Actionable
+import com.hellmund.library.actions.DisabledAction
+import com.hellmund.library.actions.EnabledAction
 import com.hellmund.transport.R
 import com.hellmund.transport.data.model.Trip
-import com.hellmund.transport.widget.dialog.actions.Action
-import com.hellmund.transport.widget.dialog.actions.Actionable
-import com.hellmund.transport.widget.dialog.actions.DisabledAction
-import com.hellmund.transport.widget.dialog.actions.EnabledAction
 import com.hellmund.transport.util.Constants
 
 @Entity(tableName = "destination")
@@ -55,7 +55,7 @@ data class Destination(
 
     fun getNotificationText(context: Context): String? = trip?.getNotificationText(context)
 
-    override fun getOptionsActions(): List<Action> {
+    override fun getActions(): List<Action> {
         val editAction = EnabledAction(R.string.edit, R.drawable.ic_edit_black_24dp)
 
         val notifyAction = when (trip) {

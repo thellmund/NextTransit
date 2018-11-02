@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationRequest
 import com.google.android.material.snackbar.Snackbar
+import com.hellmund.library.MaterialBottomDialog
+import com.hellmund.library.actions.Action
+import com.hellmund.library.actions.EnabledAction
 import com.hellmund.transport.R
 import com.hellmund.transport.data.model.CalendarEvent
 import com.hellmund.transport.data.model.Trip
@@ -33,9 +36,6 @@ import com.hellmund.transport.util.*
 import com.hellmund.transport.util.notifications.NotificationBuilder
 import com.hellmund.transport.util.notifications.NotificationScheduler
 import com.hellmund.transport.widget.MaterialBanner
-import com.hellmund.transport.widget.dialog.MaterialBottomDialog
-import com.hellmund.transport.widget.dialog.actions.Action
-import com.hellmund.transport.widget.dialog.actions.EnabledAction
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
@@ -261,6 +261,7 @@ class MainActivity : AppCompatActivity(),
     private fun openOptionsBottomDialog(destination: Destination) {
         MaterialBottomDialog(this)
                 .with(destination)
+                .setTitle(destination.title)
                 .onSelected { index ->
                     when (index) {
                         0 -> openEditDestinationActivity(destination)
@@ -278,10 +279,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun openDeleteBottomDialog(destination: Destination, position: Int) {
-        val actions = listOf<Action>(EnabledAction(R.string.remove))
+        val actions = listOf<Action>(EnabledAction(R.string.remove, null))
 
         MaterialBottomDialog(this)
                 .with(actions)
+                .setTitle(destination.title)
                 .onSelected {
                     onConfirmDestinationRemove(destination, position)
                     invalidateFab()
