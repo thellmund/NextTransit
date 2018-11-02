@@ -13,7 +13,7 @@
         <!-- Attributes for MaterialBottomDialog -->
         <item name="dialogSheetBackground">@android:color/white</item>
         <item name="dialogSheetTintColor">@color/headerText</item>
-        <item name="dialogSheetCornerRadius">8</item>
+        <item name="dialogSheetCornerRadius">@dimen/material_card_corner_radius</item>
         <item name="dialogSheetLightNavigationBar">true</item>
     </style>
 

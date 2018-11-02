@@ -70,7 +70,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.1.1'
 
     // MaterialBottomDialog
-    implementation 'com.github.thellmund:MaterialBottomDialog:0.5.1'
+    implementation 'com.github.thellmund:MaterialBottomDialog:1.0'
 
     // Kotlin extensions
     implementation "org.jetbrains.anko:anko:$anko_version"
