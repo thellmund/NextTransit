@@ -21,7 +21,7 @@
             android:layout_height="@dimen/material_large_padding"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/material_default_padding"
-            android:src="@drawable/ic_event_black_24dp"
+            android:src="@drawable/ic_outline_event_24px"
             android:tint="@color/bodyText"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -70,14 +70,16 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dismiss" />
+            android:text="@string/dismiss"
+            android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/positiveButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/open_route" />
+            android:text="@string/open_route"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

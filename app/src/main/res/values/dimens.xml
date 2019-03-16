@@ -16,5 +16,5 @@
 
     <dimen name="color_accent_width">4dp</dimen>
     <dimen name="list_item_icon">@dimen/material_extra_large_padding</dimen>
-    <dimen name="app_icon">100dp</dimen>
+    <dimen name="app_icon">80dp</dimen>
 </resources>

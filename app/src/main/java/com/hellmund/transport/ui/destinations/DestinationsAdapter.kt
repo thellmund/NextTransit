@@ -1,58 +1,38 @@
 package com.hellmund.transport.ui.destinations
 
-import android.content.Context
-import android.graphics.PorterDuff
 import android.location.Location
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hellmund.transport.R
-import com.hellmund.transport.data.model.Trip
 import com.hellmund.transport.data.persistence.Destination
-import com.hellmund.transport.util.swapItems
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.list_item_destination.view.*
-import java.util.concurrent.TimeUnit
+import com.hellmund.transport.util.swap
 
-class DestinationsAdapter(context: Context) :
-        RecyclerView.Adapter<DestinationsAdapter.ViewHolder>(),
-        DestinationItemTouchHelper.ItemTouchHelperListener {
+class DestinationsAdapter(
+        private val presenter: DestinationsPresenter,
+        private val listener: InteractionListener
+) : RecyclerView.Adapter<DestinationViewHolder>(), DestinationItemTouchHelper.Listener {
 
-    private var listener = context as OnDestinationsInteractionListener
-
-    private val presenter = DestinationsPresenter(context)
-    private var items = mutableListOf<Destination>()
-
+    private val items = mutableListOf<Destination>()
     private var location: Location? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinationViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_destination, parent, false)
-        return ViewHolder(view, presenter)
+        return DestinationViewHolder(view, presenter)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val destination = items[position]
-        holder.bind(destination, location, listener)
+    override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
+        holder.bind(items[position], location, listener)
     }
 
     override fun getItemCount() = items.size
 
-    override fun getItemId(position: Int) = items[position].id.toLong()
-
     override fun onMove(fromPosition: Int, toPosition: Int) {
-        items.swapItems(fromPosition, toPosition)
+        items.swap(fromPosition, toPosition)
+        items.mapIndexed { index, item -> item.copy(position = index) }
         notifyItemMoved(fromPosition, toPosition)
-
-        items.forEachIndexed { index, item ->
-            item.position = index
-        }
     }
 
     override fun onMoveFinished() {
@@ -67,123 +47,44 @@ class DestinationsAdapter(context: Context) :
         listener.onDeleteSelected(items[position], position)
     }
 
-    fun remove(position: Int) {
-        items.removeAt(position)
-        notifyItemRemoved(position)
-    }
+    fun updateItems(newItems: List<Destination>) {
+        newItems.forEach { newItem ->
+            val oldItem = items.firstOrNull { it.id == newItem.id }
+            oldItem?.let {
+                newItem.tripResult = it.tripResult
+            }
+        }
 
-    fun updateItems(newDestinations: List<Destination>) {
-        val diffUtil = DestinationsDiffUtil(items, newDestinations)
+        val diffUtil = DestinationsDiffUtil(items, newItems)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
-
         items.clear()
-        items.addAll(newDestinations)
-
+        items.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)
     }
 
     fun refresh() {
-        items.forEach {
-            it.trip = null
-            it.lastUpdate = 0L
-        }
+        items.forEach { it.reset() }
         notifyDataSetChanged()
     }
 
     fun updateLocation(location: Location?) {
         this.location = location
-        notifyDataSetChanged()
+        refresh()
     }
 
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        holder.stopAutoRefresh()
-    }
-
-    class ViewHolder(
-            itemView: View,
-            private val presenter: DestinationsPresenter
-    ) : RecyclerView.ViewHolder(itemView), DestinationsView {
-
-        private val disposables = CompositeDisposable()
-
-        fun bind(destination: Destination, location: Location?,
-                 listener: OnDestinationsInteractionListener) = with(itemView) {
-            nameTextView.text = destination.title
-
-            setOnClickListener { listener.onClick(destination) }
-            optionsButton.setOnClickListener { listener.onOptionsSelected(destination) }
-
-            val disposable = Observable.interval(60, TimeUnit.SECONDS)
-                    .startWith(0)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        refreshView(destination, location)
-                    }
-            disposables.add(disposable)
-        }
-
-        private fun refreshView(destination: Destination, location: Location?) {
-            val trip = destination.trip
-            when {
-                destination.isRefreshEligible -> {
-                    showLoading()
-                    presenter.fetchTrip(this, destination, location)
-                }
-                trip == null -> showError()
-                else -> showResult(trip)
-            }
-        }
-
-        override fun showLoading() = with(itemView) {
-            colorAccentView.visibility = View.INVISIBLE
-            loadingProgressBar.visibility = View.VISIBLE
-            durationUntilDepartureContainer.visibility = View.INVISIBLE
-            transitLineTextView.visibility = View.INVISIBLE
-            errorTextView.visibility = View.GONE
-        }
-
-        override fun showResult(trip: Trip) = with(itemView) {
-            val durationText = trip.getFormattedMinutesUntilDeparture(context)
-            val unitText = trip.getUnitsText(context)
-
-            durationUntilDepartureTextView.text = durationText
-            unitTextView.text = unitText
-            durationUntilDepartureContainer.visibility = View.VISIBLE
-
-            transitLineTextView.visibility = View.VISIBLE
-            transitLineTextView.text = trip.getTransitLineInformation(context)
-
-            loadingProgressBar.visibility = View.GONE
-            errorTextView.visibility = View.GONE
-
-            colorAccentView.visibility = View.VISIBLE
-            colorAccentView.background.setColorFilter(
-                    ContextCompat.getColor(context, trip.durationColor),
-                    PorterDuff.Mode.SRC_ATOP
-            )
-        }
-
-        override fun showError() = with(itemView) {
-            val transparent = ContextCompat.getColor(context, android.R.color.transparent)
-            colorAccentView.setBackgroundColor(transparent)
-            colorAccentView.visibility = View.VISIBLE
-
-            durationUntilDepartureContainer.visibility = View.INVISIBLE
-            loadingProgressBar.visibility = View.GONE
-
-            transitLineTextView.visibility = View.GONE
-            errorTextView.visibility = View.VISIBLE
-        }
-
-        fun stopAutoRefresh() {
-            disposables.dispose()
-        }
-
+    override fun onViewDetachedFromWindow(holder: DestinationViewHolder) {
+        holder.onDetached()
     }
 
     interface DragStartListener {
         fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
+    }
+
+    interface InteractionListener {
+        fun onClick(destination: Destination)
+        fun onOptionsSelected(destination: Destination)
+        fun onDeleteSelected(destination: Destination, position: Int)
+        fun onOrderChanged(destinations: List<Destination>)
     }
 
 }

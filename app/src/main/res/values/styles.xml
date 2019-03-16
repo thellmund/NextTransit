@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <!-- Window chrome -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@android:color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">@color/divider</item>
 
         <!-- Attributes for MaterialBottomDialog -->
         <item name="dialogSheetBackground">@android:color/white</item>
-        <item name="dialogSheetTintColor">@color/headerText</item>
+        <item name="dialogSheetIconTintColor">@color/headerText</item>
+        <item name="dialogSheetLabelTintColor">@color/headerText</item>
         <item name="dialogSheetCornerRadius">@dimen/material_card_corner_radius</item>
         <item name="dialogSheetLightNavigationBar">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="colorPrimaryDark">@android:color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">@null</item>
     </style>
 
     <style name="IntroductionImageCreditText">
@@ -45,13 +46,14 @@
     <style name="HeaderTextView">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/headerText</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
     </style>
 
     <style name="BodyTextView">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/bodyText</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:lineSpacingMultiplier">1.15</item>
     </style>
 
@@ -71,7 +73,6 @@
         <item name="android:lines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="CardSecondaryTextView">

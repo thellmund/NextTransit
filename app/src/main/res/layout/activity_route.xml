@@ -1,60 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/listActivityBackground"
-    android:orientation="vertical"
     tools:context=".ui.route.RouteActivity">
 
-    <ListView
-        android:id="@+id/routesListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@null"
-        android:drawSelectorOnTop="true"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/routeRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
-        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/arrivalPredictionTextView"
-            style="@style/BodyTextView"
+        <ListView
+            android:id="@+id/routesListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:drawSelectorOnTop="true"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/routeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/listActivityBackground" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_default_padding"
-            android:layout_marginTop="@dimen/material_default_padding"
-            android:layout_marginBottom="@dimen/material_small_padding"
-            tools:text="Arrives at Campus Garching at 1:30pm" />
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/material_small_padding"
+            android:paddingEnd="@dimen/material_small_padding">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/navigationDepartureStopButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_small_padding"
-            android:layout_marginBottom="@dimen/material_small_padding"
-            android:text="@string/navigate_to_departure_stop"
-            app:cornerRadius="20dp" />
+            <TextView
+                android:id="@+id/arrivalPredictionTextView"
+                style="@style/BodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_small_padding"
+                android:layout_marginTop="@dimen/material_default_padding"
+                android:layout_marginEnd="@dimen/material_small_padding"
+                android:layout_marginBottom="@dimen/material_small_padding"
+                android:textSize="16sp"
+                tools:text="Arrives at Campus Garching at 1:30pm" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/navigationDepartureStopButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/material_small_padding"
+                android:text="@string/navigate_to_departure_stop"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

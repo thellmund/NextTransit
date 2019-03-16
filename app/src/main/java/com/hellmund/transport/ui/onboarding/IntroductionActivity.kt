@@ -2,25 +2,30 @@ package com.hellmund.transport.ui.onboarding
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import androidx.appcompat.app.AppCompatActivity
 import com.hellmund.transport.R
-import com.hellmund.transport.ui.destinations.MainActivity
+import com.hellmund.transport.di.injector
+import com.hellmund.transport.ui.shared.Navigator
+import com.hellmund.transport.util.plusAssign
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_introduction.*
+import javax.inject.Inject
 
 class IntroductionActivity : AppCompatActivity() {
 
-    private var dispoable: Disposable? = null
+    private val compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_introduction)
-        window.setBackgroundDrawable(null)
+        injector.inject(this)
 
         allowAccessButton.setOnClickListener { requestLocationAccess() }
         whyButton.setOnClickListener { showLocationRequestRationale() }
@@ -34,10 +39,10 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun requestLocationAccess() {
-        dispoable = RxPermissions(this)
+        compositeDisposable += RxPermissions(this)
                 .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe { granted ->
-                    if (granted!!) {
+                    if (granted) {
                         finishOnboarding()
                     } else {
                         showLocationRequestRationale()
@@ -49,19 +54,17 @@ class IntroductionActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
                 .setTitle(R.string.why_location_access)
                 .setMessage(R.string.why_location_access_explanation)
-                .setPositiveButton(R.string.got_it) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(R.string.got_it, null)
                 .show()
     }
 
     private fun finishOnboarding() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        navigator.finishOnboarding(this)
     }
 
     override fun onDestroy() {
+        compositeDisposable.dispose()
         super.onDestroy()
-        dispoable?.dispose()
     }
 
 }

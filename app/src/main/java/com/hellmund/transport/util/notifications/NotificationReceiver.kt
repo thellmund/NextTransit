@@ -9,7 +9,10 @@ import org.jetbrains.anko.notificationManager
 
 class NotificationReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(
+            context: Context,
+            intent: Intent
+    ) {
         val notificationId = intent.getIntExtra(Constants.KEY_NOTIFICATION_ID, 0)
         val notification = intent.getParcelableExtra<Notification>(Constants.KEY_NOTIFICATION)
 

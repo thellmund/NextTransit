@@ -4,19 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.destinations.MainActivity">
 
     <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <include
         android:id="@+id/placeholderLayout"
-        layout="@layout/content_main_placeholder" />
+        layout="@layout/content_main_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
 
     <LinearLayout
         android:id="@+id/contentContainer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical"
         tools:context=".ui.destinations.MainActivity"
         tools:showIn="@layout/activity_main">
@@ -36,7 +42,6 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/placeholderBackground"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/recycler_view_bottom_padding" />
 

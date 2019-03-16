@@ -13,7 +13,7 @@ data class CalendarEvent(
     val isFutureEvent: Boolean
         get() = Date(timestamp).after(Date())
 
-    val getBannerTitle: String
+    val bannerTitle: String
         get() = "$title @ $location"
 
     override fun compareTo(other: CalendarEvent) = Date(timestamp).compareTo(Date(other.timestamp))

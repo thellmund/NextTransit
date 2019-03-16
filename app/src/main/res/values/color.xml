@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#0400BA</color>
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">@android:color/white</color>
     <color name="colorAccent">#03DAC5</color>
 
     <color name="listActivityBackground">#F2F2F2</color>
     <color name="placeholderBackground">#E0E0E0</color>
     <color name="divider">#E0E0E0</color>
+
+    <color name="card_border">#E0E0E0</color>
 
     <color name="placeholderText">#AAAAAA</color>
     <color name="errorText">#EF5350</color>

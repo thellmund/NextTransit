@@ -5,13 +5,20 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.hellmund.transport.data.model.CalendarEvent
-import com.hellmund.transport.util.NonNullLiveData
+import io.reactivex.Maybe
+import io.reactivex.Observable
 import me.everything.providers.android.calendar.CalendarProvider
-import org.jetbrains.anko.doAsync
+import javax.inject.Inject
 
-class CalendarRepository(private val context: Context) {
+class CalendarHelper @Inject constructor(
+        private val context: Context
+) {
 
-    val hasDismissedPromo: Boolean
+    val events: Observable<Event> = Observable.fromCallable {
+        if (hasDismissedPromo) Event.HAS_DISMISSED else Event.HAS_NOT_DISMISSED
+    }
+
+    private val hasDismissedPromo: Boolean
         get() {
             return ContextCompat.checkSelfPermission(
                     context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_DENIED
@@ -23,15 +30,7 @@ class CalendarRepository(private val context: Context) {
                     context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED
         }
 
-    val nextEvent: NonNullLiveData<CalendarEvent>
-        get () {
-            val data = NonNullLiveData<CalendarEvent>()
-            doAsync {
-                val event = fetchNextEvent()
-                data.postValue(event)
-            }
-            return data
-        }
+    fun loadNextEvent(): Maybe<CalendarEvent> = Maybe.fromCallable(this::fetchNextEvent)
 
     private fun fetchNextEvent(): CalendarEvent? {
         val provider = CalendarProvider(context)
@@ -49,6 +48,10 @@ class CalendarRepository(private val context: Context) {
                 .filter { it.isFutureEvent }
                 .sorted()
                 .firstOrNull()
+    }
+
+    enum class Event {
+        HAS_NOT_DISMISSED, HAS_DISMISSED
     }
 
 }

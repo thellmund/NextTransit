@@ -5,20 +5,21 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.location.Location
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.core.app.ActivityCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.hellmund.transport.data.model.Coordinates
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import java.util.*
-
-
 
 // AppCompatActivity
 
@@ -26,17 +27,9 @@ fun AppCompatActivity.requiresPermission(permission: String): Boolean {
     return ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED
 }
 
-// RecyclerView.Adapter
-
-val <T : RecyclerView.ViewHolder?> RecyclerView.Adapter<T>.isEmpty: Boolean
-    get() = itemCount == 0
-
-val <T : RecyclerView.ViewHolder?> RecyclerView.Adapter<T>.isNotEmpty: Boolean
-    get() = itemCount > 0
-
 // Date
 
-val Date.withinNextHour: Boolean
+val Date.isWithinNextHour: Boolean
     get () {
         val hourMillis = 60 * 60 * 1000
         val timestamp = time * 1000 // time is in seconds, transform it to milliseconds
@@ -46,7 +39,7 @@ val Date.withinNextHour: Boolean
 
 // Collections
 
-fun <T> MutableList<T>.swapItems(fromPosition: Int, toPosition: Int) {
+fun <T> MutableList<T>.swap(fromPosition: Int, toPosition: Int) {
     if (fromPosition < toPosition) {
         for (i in fromPosition until toPosition) {
             Collections.swap(this, i, i + 1)
@@ -63,18 +56,6 @@ fun <T> MutableList<T>.swapItems(fromPosition: Int, toPosition: Int) {
 fun Location.toCoordinates() = Coordinates(latitude, longitude)
 
 // Views
-
-fun FloatingActionButton.show(show: Boolean) {
-    if (show) {
-        show()
-    } else {
-        hide()
-    }
-}
-
-fun AppCompatTextView.addCompoundDrawables(start: Int = 0, top: Int = 0, end: Int = 0, bottom: Int = 0) {
-    setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom)
-}
 
 fun AutoCompleteTextView.onChange(callback: (String) -> Unit) {
     addTextChangedListener(object : TextWatcher {
@@ -109,10 +90,28 @@ val Drawable.bitmap: Bitmap
         return bitmap
     }
 
-fun View.show() {
-    visibility = View.VISIBLE
+operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
+    add(disposable)
 }
 
-fun View.hide() {
-    visibility = View.GONE
+fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T) -> Unit) {
+    observe(owner, androidx.lifecycle.Observer { observer(it) })
+}
+
+val Location.coordinates: String
+    get() = this.toCoordinates().toString()
+
+fun ChipGroup.onCheckedChanged(block: (String) -> Unit) {
+    setOnCheckedChangeListener { chipGroup, checkedId ->
+        val chip = chipGroup.findViewById<Chip>(checkedId)
+        block(chip.text.toString())
+    }
+}
+
+fun RecyclerView.onScrolled(block: (RecyclerView) -> Unit) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            block(recyclerView)
+        }
+    })
 }

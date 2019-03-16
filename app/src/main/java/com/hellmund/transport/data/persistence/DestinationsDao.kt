@@ -1,13 +1,13 @@
 package com.hellmund.transport.data.persistence
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.reactivex.Observable
 
 @Dao
 interface DestinationsDao {
 
     @Query("SELECT * FROM destination ORDER BY position")
-    fun getAll(): LiveData<List<Destination>>
+    fun getAll(): Observable<List<Destination>>
 
     @Query("SELECT COUNT(*) FROM destination")
     fun getCount(): Int

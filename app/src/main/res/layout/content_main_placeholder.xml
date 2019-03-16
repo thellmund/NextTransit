@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
@@ -23,7 +21,7 @@
             android:layout_marginBottom="@dimen/material_default_padding"
             android:alpha="0.3"
             android:contentDescription="@string/access_icon_placeholder_view"
-            android:src="@drawable/ic_directions_transit_black_48dp" />
+            android:src="@drawable/ic_outline_directions_transit_24px" />
 
         <TextView
             android:id="@+id/placeholderHeader"
@@ -56,7 +54,9 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="@dimen/material_extra_large_padding"
         android:text="@string/add_destination"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:cornerRadius="20dp" />
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_add_white_24dp" />
 
 </FrameLayout>

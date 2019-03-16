@@ -1,0 +1,59 @@
+ext {
+    androidMinSdkVersion = 21
+    androidTargetSdkVersion = 28
+    androidCompileSdkVersion = 28
+
+    androidBuildToolsVersion = '3.3.0'
+
+    jetpackVersion = '1.1.0-alpha01'
+    constraintLayoutVersion = '2.0.0-alpha3'
+    kotlinVersion = '1.3.0'
+    ktxVersion = '1.1.0-alpha03'
+
+    junit4Version = '4.13-beta-1'
+
+    buildPlugins = [
+            androidGradlePlugin: "com.android.tools.build:gradle:$androidBuildToolsVersion",
+            kotlinGradlePlugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    ]
+
+    libraries = [
+            kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            material: 'com.google.android.material:material:1.0.0',
+            androidXLegacy: 'androidx.legacy:legacy-support-v4:1.0.0',
+            percentLayout: 'androidx.percentlayout:percentlayout:1.0.0',
+            constraintLayout: 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3',
+            recyclerViewAnimator: 'jp.wasabeef:recyclerview-animators:3.0.0',
+            playServicesLocation: 'com.google.android.gms:play-services-location:16.0.0',
+            gson: 'com.google.code.gson:gson:2.8.5',
+            retrofit: 'com.squareup.retrofit2:retrofit:2.5.0',
+            retrofitRxJavaAdapter: 'com.squareup.retrofit2:adapter-rxjava2:2.5.0',
+            retrofitGsonConverter: 'com.squareup.retrofit2:converter-gson:2.5.0',
+            dagger: 'com.google.dagger:dagger:2.19',
+            daggerKapt: 'com.google.dagger:dagger-compiler:2.19',
+            providers: 'me.everything:providers-android:1.0.1',
+            room: 'androidx.room:room-runtime:2.1.0-alpha04',
+            roomRxJava: 'androidx.room:room-rxjava2:2.1.0-alpha04',
+            roomKapt: 'androidx.room:room-compiler:2.1.0-alpha04',
+            lifecycle: 'androidx.lifecycle:lifecycle-extensions:2.0.0',
+            rxJava: 'io.reactivex:rxjava:1.3.4',
+            rxAndroid: 'io.reactivex.rxjava2:rxandroid:2.1.1',
+            rxPermissions: 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar',
+            rxLocation: 'com.patloew.rxlocation:rxlocation:1.0.4',
+            rxBinding: 'com.jakewharton.rxbinding2:rxbinding:2.1.1',
+            rxBindingDesign: 'com.jakewharton.rxbinding2:rxbinding-design:2.1.1',
+            rxRelay: 'com.jakewharton.rxrelay2:rxrelay:2.1.0',
+            materialBottomDialog: 'com.github.thellmund:MaterialBottomDialog:1.0.1',
+            ktx: 'androidx.core:core-ktx:1.0.1',
+            anko: 'org.jetbrains.anko:anko:0.10.5',
+            timber: 'com.jakewharton.timber:timber:4.7.1'
+    ]
+
+    testLibraries = [
+            junit4: "junit:junit:$junit4Version",
+    ]
+
+    projectModules = [
+            local: fileTree(include: ['*.jar'], dir: 'libs')
+    ]
+}

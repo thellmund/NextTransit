@@ -1,51 +1,65 @@
 package com.hellmund.transport.ui.route
 
-import android.location.Location
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
 import com.hellmund.transport.R
 import com.hellmund.transport.data.api.GoogleMapsClient
 import com.hellmund.transport.data.model.Trip
+import com.hellmund.transport.di.injector
+import com.hellmund.transport.ui.shared.LocationProvider
 import com.hellmund.transport.util.Constants
 import kotlinx.android.synthetic.main.activity_route.*
 import org.jetbrains.anko.browse
+import javax.inject.Inject
 
 class RouteActivity : AppCompatActivity() {
+
+    private val title: String by lazy {
+        intent.getStringExtra(Constants.INTENT_TITLE) ?: throw IllegalStateException()
+    }
+
+    private val trip: Trip by lazy {
+        intent.getParcelableExtra<Trip>(Constants.INTENT_TRIP) ?: throw IllegalStateException()
+    }
+
+    @Inject
+    lateinit var locationProvider: LocationProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_route)
-        window.setBackgroundDrawable(null)
 
-        val title = intent.getStringExtra(Constants.INTENT_TITLE)
-        val trip = intent.getParcelableExtra<Trip>(Constants.INTENT_TRIP)
+        injector.inject(this)
 
-        setupToolbar(title)
-        setupRecyclerView(trip)
-        setupBottomBar(title, trip)
+        setupToolbar()
+        setupRecyclerView()
+        setupBottomBar()
 
         navigationDepartureStopButton.setOnClickListener {
             navigateToDepartureStop(trip)
         }
     }
 
-    private fun setupToolbar(title: String) {
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar as Toolbar)
         supportActionBar?.title = title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupRecyclerView(trip: Trip) {
+    private fun setupRecyclerView() {
         val route = trip.route ?: return
-        val steps = route.legs.first().steps.map { it.stepItem }
+        val stepItems = route.legs.first().steps.map { it.toStepItem() }
 
         routeRecyclerView.apply {
             setHasFixedSize(true)
-            adapter = StepsAdapter(steps)
+            adapter = StepsAdapter(stepItems)
             layoutManager = LinearLayoutManager(this@RouteActivity)
             itemAnimator = DefaultItemAnimator()
         }
@@ -54,15 +68,15 @@ class RouteActivity : AppCompatActivity() {
         routeRecyclerView.addItemDecoration(itemDecoration)
     }
 
-    private fun setupBottomBar(title: String, trip: Trip) {
+    private fun setupBottomBar() {
         val arrivalTime = trip.arrivalTime.text
-        arrivalPredictionTextView.text =
-                String.format(getString(R.string.arrival_prediction), title, arrivalTime)
+        arrivalPredictionTextView.text = getString(R.string.arrival_prediction, title, arrivalTime)
     }
 
+    @SuppressLint("MissingPermission")
     private fun navigateToDepartureStop(trip: Trip) {
-        val location = intent.getParcelableExtra<Location>(Constants.INTENT_LOCATION) ?: return
-        val url = GoogleMapsClient.routeToDepartureStopURL(location, trip.departureStop)
+        val location = locationProvider.lastLocation ?: return
+        val url = GoogleMapsClient.routeToDepartureStopUrl(location, trip.departureStop)
         browse(url)
     }
 

@@ -11,18 +11,25 @@ import com.hellmund.transport.data.persistence.Destination
 import com.hellmund.transport.ui.route.RouteActivity
 import com.hellmund.transport.util.Constants
 import com.hellmund.transport.util.bitmap
+import javax.inject.Inject
 
-object NotificationBuilder {
+interface NotificationBuilder {
+    fun build(destination: Destination, actionIntent: Intent): Notification
+}
 
-    private const val ACTION_INTENT_REQUEST_CODE = 1234
+class RealNotificationBuilder @Inject constructor(
+        private val context: Context
+): NotificationBuilder {
 
-    fun build(context: Context, destination: Destination, actionIntent: Intent): Notification {
+    override fun build(destination: Destination, actionIntent: Intent): Notification {
         val title = destination.getNotificationTitle(context)
-        val text = destination.getNotificationText(context)
+        val text = destination.getNotificationText()
+
+        val trip = destination.trip ?: throw IllegalStateException()
 
         val launchIntent = Intent(context, RouteActivity::class.java).apply {
             putExtra(Constants.INTENT_TITLE, title)
-            putExtra(Constants.INTENT_TRIP, destination.trip)
+            putExtra(Constants.INTENT_TRIP, trip)
         }
         val launchPendingIntent = PendingIntent.getActivity(
                 context, 1, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -30,7 +37,7 @@ object NotificationBuilder {
         val color = ContextCompat.getColor(context, R.color.colorPrimary)
         val largeIcon = ContextCompat.getDrawable(context, R.mipmap.ic_launcher_round)
 
-        val action = getNotificationAction(context, actionIntent)
+        val action = buildNotificationAction(actionIntent)
         return NotificationCompat.Builder(context, Constants.REMINDERS_CHANNEL)
                 .setContentTitle(title)
                 .setContentText(text)
@@ -43,8 +50,7 @@ object NotificationBuilder {
                 .build()
     }
 
-    private fun getNotificationAction(context: Context,
-                                      intent: Intent): NotificationCompat.Action {
+    private fun buildNotificationAction(intent: Intent): NotificationCompat.Action {
         val pendingIntent = PendingIntent.getActivity(
                 context, ACTION_INTENT_REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
@@ -54,6 +60,10 @@ object NotificationBuilder {
         return NotificationCompat.Action
                 .Builder(icon, text, pendingIntent)
                 .build()
+    }
+
+    companion object {
+        private const val ACTION_INTENT_REQUEST_CODE = 1234
     }
 
 }

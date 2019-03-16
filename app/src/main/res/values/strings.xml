@@ -24,6 +24,7 @@
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
     <string name="navigate_to_departure_stop">Navigate to departure stop</string>
+    <string name="remove_destination">Remove %s?</string>
     <string name="removed_destination">Removed %s</string>
 
     <string name="title_activity_introduction" translatable="false">IntroductionActivity</string>

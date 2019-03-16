@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/allow_location_access"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             app:cornerRadius="@dimen/material_button_corner_radius" />
 

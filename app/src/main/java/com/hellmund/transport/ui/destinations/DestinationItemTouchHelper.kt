@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class DestinationItemTouchHelper(
-        private val listener: ItemTouchHelperListener
+        private val listener: Listener
 ) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(view: RecyclerView, holder: RecyclerView.ViewHolder): Int {
@@ -54,7 +54,7 @@ class DestinationItemTouchHelper(
         super.onChildDraw(canvas, recyclerView, holder, dX, dY, actionState, isCurrentlyActive)
     }
 
-    interface ItemTouchHelperListener {
+    interface Listener {
         fun onMove(fromPosition: Int, toPosition: Int)
         fun onMoveFinished()
         fun onSwipedLeft(position: Int)

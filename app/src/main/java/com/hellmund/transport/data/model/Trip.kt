@@ -1,28 +1,31 @@
 package com.hellmund.transport.data.model
 
 import android.content.Context
-import android.os.Parcel
 import android.os.Parcelable
 import com.hellmund.transport.R
 import com.hellmund.transport.util.Constants
+import kotlinx.android.parcel.Parcelize
 
+sealed class TripResult {
+    data class Success(val trip: Trip) : TripResult()
+    object None : TripResult()
+    object Loading : TripResult()
+}
+
+@Parcelize
 data class Trip(
         var departureStop: TransitStop,
         var departureVehicle: TransitVehicle,
         var departureTime: TransitTime,
         var minutesToDepartureStop: Int,
+        val formattedMinutesUntilDeparture: String,
+        val unitsText: String,
+        val formattedTransitLineInfo: String,
+        val calendarBannerText: String,
+        val notificationText: String,
         var arrivalTime: TransitTime,
         var route: Route?
 ) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            parcel.readParcelable(TransitStop::class.java.classLoader),
-            parcel.readParcelable(TransitVehicle::class.java.classLoader),
-            parcel.readParcelable(TransitTime::class.java.classLoader),
-            parcel.readInt(),
-            parcel.readParcelable(TransitTime::class.java.classLoader),
-            parcel.readParcelable(Route::class.java.classLoader)
-    )
 
     val hasRoute: Boolean
         get() = route != null
@@ -37,69 +40,36 @@ data class Trip(
             }
         }
 
-    fun getFormattedMinutesUntilDeparture(context: Context): String {
-        return departureTime.getFormattedTimeUntil(context)
-    }
-
-    fun getUnitsText(context: Context): String {
-        val minutes = departureTime.minutesUntil
-        return if (minutes < 60) {
-            context.getString(R.string.mins)
-        } else {
-            context.getString(R.string.hrs)
-        }
-    }
-
-    fun getTransitLineInformation(context: Context) =
-            String.format(context.getString(R.string.at_stop_name),
-                    departureVehicle.name, departureStop.name)
-
-    fun getCalendarBannerText(context: Context): String {
-        val transitLine = getTransitLineInformation(context)
-        return "$transitLine at ${departureTime.text}"
-    }
-
-    fun getNotificationText(context: Context): String {
-        return String.format(context.getString(R.string.notification_text),
-                departureTime.text, departureVehicle.name, departureStop.name)
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(departureStop, flags)
-        parcel.writeParcelable(departureVehicle, flags)
-        parcel.writeParcelable(departureTime, flags)
-        parcel.writeInt(minutesToDepartureStop)
-        parcel.writeParcelable(arrivalTime, flags)
-        parcel.writeParcelable(route, flags)
-    }
-
-    override fun describeContents() = 0
-
     companion object {
 
-        @JvmField var CREATOR = object : Parcelable.Creator<Trip> {
-            override fun createFromParcel(parcel: Parcel) = Trip(parcel)
-
-            override fun newArray(size: Int) = arrayOfNulls<Trip?>(size)
-        }
-
-        fun fromResponse(response: MapsResponse): Trip? {
+        fun fromResponse(context: Context, response: MapsResponse): Trip? {
             val route = response.routes.firstOrNull() ?: return null
             val leg = route.legs.firstOrNull() ?: return null
-
-            val departureStep = leg.getFirstTransitStep() ?: return null
-
+            val departureStep = leg.firstTransitStep ?: return null
             val departureTransitDetails = departureStep.transitDetails ?: return null
 
             val departureTime = departureTransitDetails.departureTime
             val durationToStop = leg.steps.first().duration.value
             val minutesToStop = Math.round(durationToStop.toFloat() / 60.0f)
-
             val arrivalTime = leg.arrivalTime
             val departureStop = departureTransitDetails.departureStop
             val line = departureTransitDetails.line.vehicle
 
-            return Trip(departureStop, line, departureTime, minutesToStop, arrivalTime, route)
+            val formattedMinutesUntilDeparture = departureTime.getFormattedTimeUntil(context)
+            val unitsText = if (departureTime.minutesUntil < 60) {
+                context.getString(R.string.mins)
+            } else {
+                context.getString(R.string.hrs)
+            }
+
+            val notificationText = context.getString(R.string.notification_text,
+                    departureTime.text, line.name, departureStop.name)
+            val transitLineInfo = context.getString(R.string.at_stop_name, line.name, departureStop.name)
+            val calendarBannerText = context.getString(R.string.at_stop_name, transitLineInfo, departureTime.text)
+
+            return Trip(departureStop, line, departureTime, minutesToStop,
+                    formattedMinutesUntilDeparture, unitsText, transitLineInfo,
+                    calendarBannerText, notificationText, arrivalTime, route)
         }
 
     }

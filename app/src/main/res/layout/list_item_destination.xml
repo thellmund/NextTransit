@@ -2,7 +2,6 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -10,7 +9,9 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/material_card_corner_radius"
-    app:cardElevation="@dimen/material_card_elevation">
+    app:elevation="0dp"
+    app:strokeColor="@color/card_border"
+    app:strokeWidth="1dp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,8 +22,8 @@
             android:layout_width="@dimen/color_accent_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:layout_marginBottom="@dimen/material_default_padding"
             android:layout_marginTop="@dimen/material_default_padding"
+            android:layout_marginBottom="@dimen/material_default_padding"
             android:background="@drawable/color_accent_background" />
 
         <LinearLayout
@@ -67,8 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingBottom="@dimen/material_default_padding"
-                android:paddingTop="@dimen/material_default_padding">
+                android:paddingTop="@dimen/material_default_padding"
+                android:paddingBottom="@dimen/material_default_padding">
 
                 <!-- Departure buffer -->
                 <LinearLayout
