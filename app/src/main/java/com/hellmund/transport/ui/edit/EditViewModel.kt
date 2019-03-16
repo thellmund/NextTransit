@@ -73,17 +73,19 @@ class EditViewModel @Inject constructor(
     }
 
     private fun handleAddressChanged(address: String): Observable<Result> {
-        addressInput = address
-        val saveButtonResult = if (isSaveEligible) Result.EnableSave else Result.DisableSave
-
         // Prevent a new suggestions dropdown when the user has just selected an entry from the
         // suggestions dropdown
         val isSuggestionSelection = didSelectSuggestion
-        val shouldLoadSuggestions = address.length >= 3 && isSuggestionSelection.not()
+        val isLongEnough = address.length >= 3
+        val isNewContent = address != addressInput
+        val shouldLoadSuggestions = isLongEnough && isNewContent && isSuggestionSelection.not()
 
         if (didSelectSuggestion) {
             didSelectSuggestion = false
         }
+
+        addressInput = address
+        val saveButtonResult = if (isSaveEligible) Result.EnableSave else Result.DisableSave
 
         return if (shouldLoadSuggestions) {
             fetchSuggestions(address).startWith(saveButtonResult)
