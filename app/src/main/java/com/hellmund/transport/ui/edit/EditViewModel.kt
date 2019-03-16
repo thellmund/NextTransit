@@ -13,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync
 import timber.log.Timber
-import java.lang.Math.abs
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -27,6 +26,8 @@ class EditViewModel @Inject constructor(
 
     private var titleInput = destination?.title.orEmpty()
     private var addressInput = destination?.address.orEmpty()
+
+    private var didSelectSuggestion = false
 
     private val isSaveEligible: Boolean
         get() = titleInput.isNotBlank() && addressInput.isNotBlank()
@@ -61,7 +62,6 @@ class EditViewModel @Inject constructor(
         return when (action) {
             is Action.TitleChanged -> handleTitleChanged(action.title)
             is Action.AddressChanged -> handleAddressChanged(action.address)
-            is Action.LoadSuggestions -> fetchSuggestions(action.input)
             Action.HideSuggestions -> Observable.just(Result.HideSuggestions)
             Action.SaveButtonClicked -> handleSaveAction()
         }
@@ -75,7 +75,21 @@ class EditViewModel @Inject constructor(
     private fun handleAddressChanged(address: String): Observable<Result> {
         addressInput = address
         val saveButtonResult = if (isSaveEligible) Result.EnableSave else Result.DisableSave
-        return fetchSuggestions(address).startWith(saveButtonResult)
+
+        // Prevent a new suggestions dropdown when the user has just selected an entry from the
+        // suggestions dropdown
+        val isSuggestionSelection = didSelectSuggestion
+        val shouldLoadSuggestions = address.length >= 3 && isSuggestionSelection.not()
+
+        if (didSelectSuggestion) {
+            didSelectSuggestion = false
+        }
+
+        return if (shouldLoadSuggestions) {
+            fetchSuggestions(address).startWith(saveButtonResult)
+        } else {
+            Observable.just(saveButtonResult)
+        }
     }
 
     private fun reduceState(
@@ -115,8 +129,6 @@ class EditViewModel @Inject constructor(
         compositeDisposable += observable
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
-                .filter { input -> input.length >= 3 }
-                .filter { abs(it.length - titleInput.length) <= 1 }
                 .map { it.toString() }
                 .map { Action.AddressChanged(it) }
                 .subscribe(actionsRelay::accept, Timber::e)
@@ -129,6 +141,7 @@ class EditViewModel @Inject constructor(
     }
 
     fun hideSuggestions() {
+        didSelectSuggestion = true
         actionsRelay.accept(Action.HideSuggestions)
     }
 

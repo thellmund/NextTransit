@@ -173,9 +173,9 @@ class EditDestinationActivity : AppCompatActivity() {
     }
 
     private fun onSuggestionSelected(suggestion: String) {
+        viewModel.hideSuggestions()
         addressInputView.setText(suggestion)
         addressInputView.setSelection(suggestion.length)
-        viewModel.hideSuggestions()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

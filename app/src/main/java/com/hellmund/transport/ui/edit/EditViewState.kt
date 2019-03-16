@@ -5,7 +5,6 @@ import com.hellmund.transport.data.persistence.Destination
 sealed class Action {
     data class TitleChanged(val title: String) : Action()
     data class AddressChanged(val address: String) : Action()
-    data class LoadSuggestions(val input: String) : Action()
     object HideSuggestions : Action()
     object SaveButtonClicked : Action()
 }
