@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/material_small_padding"
                 android:text="@string/navigate_to_departure_stop"
+                android:textAllCaps="false"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>
