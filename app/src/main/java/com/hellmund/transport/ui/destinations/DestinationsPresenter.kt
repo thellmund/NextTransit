@@ -8,6 +8,7 @@ import com.hellmund.transport.util.coordinates
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class DestinationsPresenter @Inject constructor(
@@ -23,6 +24,8 @@ class DestinationsPresenter @Inject constructor(
                 .fetchTrip(location.coordinates, destination.address)
                 .subscribeOn(Schedulers.io())
                 .map(tripMapper)
+                .doOnError { Timber.e(it) }
+                .onErrorReturnItem(TripResult.None)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 

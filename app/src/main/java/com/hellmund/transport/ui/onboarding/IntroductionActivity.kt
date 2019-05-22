@@ -1,10 +1,10 @@
 package com.hellmund.transport.ui.onboarding
 
 import android.Manifest
-import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.hellmund.transport.R
 import com.hellmund.transport.di.injector

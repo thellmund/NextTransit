@@ -72,7 +72,8 @@
             android:text="@string/why"
             android:textAllCaps="false"
             android:textColor="@color/bodyText"
-            app:backgroundTint="@android:color/transparent" />
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="@dimen/material_button_corner_radius" />
 
         <TextView
             android:id="@+id/imageCreditTextView"

@@ -51,9 +51,7 @@ class MainActivity : AppCompatActivity(),
     lateinit var navigator: Navigator
 
     private val destinationsAdapter: DestinationsAdapter by lazy {
-        DestinationsAdapter(destinationsPresenter, this).apply {
-            setHasStableIds(true)
-        }
+        DestinationsAdapter(destinationsPresenter, this)
     }
 
     private val itemTouchHelper: ItemTouchHelper by lazy {
@@ -169,7 +167,6 @@ class MainActivity : AppCompatActivity(),
         swipeRefreshLayout.apply {
             isEnabled = false
             setColorSchemeResources(R.color.colorAccent)
-
             setOnRefreshListener(this@MainActivity::onRefresh)
         }
 
@@ -241,26 +238,10 @@ class MainActivity : AppCompatActivity(),
 
     private fun handleNotifyWhenToLeave(destination: Destination) {
         viewModel.notifyWhenToLeave(destination)
-
-        // TODO Move to ViewModel?
-        /*
-        val trip = destination.trip ?: return
-        val minsToDeparture = trip.departureTime.minutesUntil
-        val minsToStop = trip.minutesToDepartureStop
-        val buffer = (minsToDeparture - minsToStop - 2) * 60 * 1000
-
-        val routeIntent = navigator.getRouteIntent(destination) ?: return
-        val notificationTime = SystemClock.elapsedRealtime() + buffer
-        val notification = notificationBuilder.build(destination, routeIntent)
-        notificationScheduler.schedule(destination.id, notification, notificationTime)
-
-        Snackbar.make(contentContainer, getString(R.string.notification_scheduled), Snackbar.LENGTH_LONG)
-                .show()
-        */
     }
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
-        itemTouchHelper?.startDrag(viewHolder)
+        itemTouchHelper.startDrag(viewHolder)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
